@@ -1,9 +1,13 @@
 import React, { useState } from "react";
-import { isFulfilled } from "q";
 
-function CommentForm() {
+function CommentForm({handleSubmit}) {
   const [commentTextArea, setCommentTextArea] = useState("");
   const [authorInput, setAuthorInput] = useState("");
+
+  const onSubmit = (event) => {
+    event.preventDefault();
+    handleSubmit(authorInput, commentTextArea);
+  };
 
   const isNotFilled = () => {
     return !(authorInput && commentTextArea)
@@ -18,7 +22,7 @@ function CommentForm() {
   }
 
   return (
-    <form>
+    <form onSubmit={onSubmit}>
       <div className="form-group">
         <textarea
           value={commentTextArea}

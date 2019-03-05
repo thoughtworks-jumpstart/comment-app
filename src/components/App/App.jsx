@@ -1,17 +1,22 @@
 import React, { Component } from "react";
 import CommentList from "../CommentList/CommentList";
-import CommentForm from "../CommentForm/CommentForm"
+import CommentForm from "../CommentForm/CommentForm";
 
 class App extends Component {
+  state = {
+    comments: []
+  };
+
+  handleSubmit = (author, comment) => {
+    const newComment = { author, comment };
+    this.setState({ comments: [...this.state.comments, newComment] });
+  };
+
   render() {
-    const sampleData = [
-      { comment: "test", author: "John" },
-      { comment: "test2", author: "Jane" }
-    ];
     return (
       <div className="container mt-3">
-        <CommentForm />
-        <CommentList comments={sampleData} />
+        <CommentForm handleSubmit={this.handleSubmit}/>
+        <CommentList comments={this.state.comments}/>
       </div>
     );
   }
